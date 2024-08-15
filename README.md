@@ -46,4 +46,4 @@ July is the most popular month, likely due to summer weather and increased outdo
 Saturday is the most popular day of the week across all users, and it is the only day when casual users slightly surpass members in usage, although the difference is marginal.
 
 It is important to consider these findings when formulating strategies and making data-driven decisions to better serve both member and casual user segments effectively.
-The data has been made available by Motivate International Inc. under this [license]([[url](https://ride.divvybikes.com/data-license-agreement)](
+The data has been made available by Motivate International Inc. under this [License](url)

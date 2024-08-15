@@ -75,13 +75,56 @@ colnames(q1_2019) #here we checked the column names for both our database.
 
 colnames(q1_2020) #we decided to make the Q1 2020 file the main one. so we are gonna change the column names so they are all matching
 
-(q1_2019 <- rename(q1_2019,  #this is the code, we switched the column names so they can match in both databases
+
+### Now that we know which columns to change, we use this code to match the columns
+
+(q1_2019 <- rename(q1_2019,
+                  
                   ride_id = trip_id,
+                  
                   rideable_type = bikeid,
+                  
                   started_at = start_time,
+                  
                   ended_at = end_time,
+                  
                   start_station_name = from_station_name,
+                  
                   end_station_id = from_station_id,
+                  
                   end_station_name = to_station_name,
+                  
                   member_casual = usertype))
+### This is how we are going to check the data structures, make sure the numbers are numbers and not charecters.
+str(q1_2019) 
+
+str(q1_2020)
+
+#### we see that some colmns data types dont match up so we want to fix that. like ride_id in 2019 is int while in the 2020 its a chr
+
+q1_2019 <- mutate(q1_2019, ride_id = as.character(ride_id),
+
+                  
+                  rideable_type = as.character(rideable_type)) #in this we changed them to characters.
+
+all_trips <- bind_rows(q1_2019, q1_2020) 
+#### this lets us combine our data into one big dataframe instead of the two seperate ones we were working on.
+
+all_trips <- all_trips %>% 
+
+  select(-c(start_lat, start_lng, end_lat, end_lng, birthyear, gender, "tripduration"))
+
+### Inspect the new table that has been created
+
+colnames(all_trips)  #List of column names
+
+nrow(all_trips)  #How many rows are in data frame?
+
+dim(all_trips)  #Dimensions of the data frame?
+
+head(all_trips)  #See the first 6 rows of data frame.  Also tail(all_trips)
+
+str(all_trips)  #See list of columns and data types (numeric, character, etc)
+
+summary(all_trips)  #Statistical summary of data. Mainly for numerics
 

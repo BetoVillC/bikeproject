@@ -1,7 +1,7 @@
 # bike project
 My bike project
 
-This is a project i did on the cyclic dataset, which is a fake bike sharing company.
+## This is a project i did on the cyclic dataset, which is a fake bike sharing company.
 
 Here we are looking at the data provided to us by cyclistic bike sharing company. We are trying to find out if causal riders make up more of the customer base then the subcscribed customers. we see who rides more frequent and at what durations they ride for.
 
@@ -19,7 +19,7 @@ When we talk about the whole year, July has the most riders. It's probably due t
 
 Saturdays are a hit with everyone – both members and casual users. It's the busiest day. Interestingly, casual users edge out members a bit on this day. That shows how Saturdays are a big deal for everyone, with casual users showing a tad more love.
 
-My 3 Recommendations Based On My Analysis
+# My 3 Recommendations Based On My Analysis
 
 The marketing strategy should focus on increasing membership awareness and attracting casual users by offering special deals in locations where casual users are most frequent. By targeting specific areas, the marketing efforts can be more effective while reducing overall expenditure.
 
@@ -30,7 +30,7 @@ Conduct targeted surveys for all user types to gain valuable insights. By using 
 How do annual members and casual riders use Cyclistic differently?
 The provided information pertains specifically to the difference between annual members and casual riders during the period from July 2022 to June 2023. It is important to note that these insights are limited to the data we have on hand, and further implications may require addressing the remaining stakeholder questions.
 
-Here is a summary of the key findings:
+# Here is a summary of the key findings:
 Members prefer riding on weekdays, with the most frequent rides occurring from Tuesday to Thursday. In contrast, casual users prefer weekends, particularly Saturdays, suggesting different usage patterns for both groups.
 
 Kingsbury and Kinzie St. are the top start and end stations for members, whereas Streeter Dr. and Grand Ave. are preferred by casual users. Station preferences may align with the locations of residential and commercial areas frequented by each group.
@@ -47,3 +47,41 @@ Saturday is the most popular day of the week across all users, and it is the onl
 
 It is important to consider these findings when formulating strategies and making data-driven decisions to better serve both member and casual user segments effectively.
 The data has been made available by Motivate International Inc. under this [license](uhttps://ride.divvybikes.com/data-license-agreementrl)
+
+## First we are going to load up the librarys we need for the analysis we are about to do wich are dplyr and tidyvrse.
+
+install.packages("tidyverse")
+
+install.packages("conflicted")
+
+library(tidyverse)  #helps wrangle data
+
+### Use the conflicted package to manage conflicts
+
+library(conflicted)
+
+### Set dplyr::filter and dplyr::lag as the default choices
+conflict_prefer("filter", "dplyr")
+
+conflict_prefer("lag", "dplyr")
+
+### Here we are assighning our databases to easier variables
+q1_2019 <- read.csv("Divvy_Trips_2019_Q1.csv") #here we assighned the databases to a variable
+
+q1_2020 <- read.csv("divvy_Trips_2020_Q1.csv")
+
+### This is a simple way to see which column names are the same and which we are going to have to change.
+colnames(q1_2019) #here we checked the column names for both our database.
+
+colnames(q1_2020) #we decided to make the Q1 2020 file the main one. so we are gonna change the column names so they are all matching
+
+(q1_2019 <- rename(q1_2019,  #this is the code, we switched the column names so they can match in both databases
+                  ride_id = trip_id,
+                  rideable_type = bikeid,
+                  started_at = start_time,
+                  ended_at = end_time,
+                  start_station_name = from_station_name,
+                  end_station_id = from_station_id,
+                  end_station_name = to_station_name,
+                  member_casual = usertype))
+
